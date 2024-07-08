@@ -5,8 +5,10 @@ use crate::grammar::ParseNode;
 use crate::lexer;
 use crate::lexer::LexItem;
 
-// Not sure how exactly to read this grammar. Need to understand the notation. Probably at
+// Not sure how exactly to read this grammar. Need to understand the notation.
 // http://pages.cs.wisc.edu/~fischer/cs536.s08/course.hold/html/NOTES/3.CFG.html#exp
+//
+// wayback link: https://web.archive.org/web/20240603005149/https://pages.cs.wisc.edu/~fischer/cs536.s08/course.hold/html/NOTES/3.CFG.html#exp
 //
 // > The grammar I came up with is as follows:
 // >    expr -> summand + expr | summand
