@@ -10,28 +10,16 @@ use std::env;
 
 mod error;
 mod grammar;
-mod lexing;
+mod lexer;
+mod parser;
 
 fn main() {
-    // println!("Hello, world!");
     let args: Vec<_> = env::args().collect();
+    println!("{:?}", args);
     if args.len() > 1 {
         println!("The first argument is {}", args[1]);
-        println!("{:?}", parse(&args[1]));
+        let tree = parser::parse(&args[1]).unwrap();
+
+        println!("{}", parser::format_print(&tree));
     }
 }
-
-// Not sure how exactly to read this grammar. Need to understand the notation. Probably at
-// http://pages.cs.wisc.edu/~fischer/cs536.s08/course.hold/html/NOTES/3.CFG.html#exp
-//
-// > The grammar I came up with is as follows:
-// >    expr -> summand + expr | summand
-// >    summand -> term * summand | term
-// >    term -> NUMBER | ( expr )
-fn parse(input: &str) {}
-
-fn parse_expr() {}
-
-fn parse_summand() {}
-
-fn parse_term() {}

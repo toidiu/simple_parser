@@ -17,10 +17,11 @@ pub struct ParseNode {
 
 impl ParseNode {
     // Deviate from blog post by passing in the entry
-    pub fn new(entry: GrammarItem) -> ParseNode {
-        ParseNode {
-            entry,
-            children: Vec::new(),
+    pub fn new(entry: GrammarItem, lhs: Option<ParseNode>) -> ParseNode {
+        let mut children = vec![];
+        if let Some(lhs) = lhs {
+            children.push(lhs);
         }
+        ParseNode { entry, children }
     }
 }

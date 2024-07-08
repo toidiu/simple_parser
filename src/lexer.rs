@@ -1,4 +1,5 @@
 use crate::error::Result;
+use crate::error::SimpleError;
 use core::iter::Peekable;
 
 // Lexing
@@ -28,7 +29,7 @@ pub enum LexItem {
 // > just a single character long. So instead of complicated things with regular
 // > expressions. Instead I iterate over the characters of my input String and use a match
 // > do create a LexItem.
-fn lex(input: &str) -> Result<Vec<LexItem>> {
+pub fn lex(input: &str) -> Result<Vec<LexItem>> {
     let mut tokens = Vec::new();
 
     // need to consume multi-digit numbers
@@ -70,7 +71,9 @@ fn consume_number<T: Iterator<Item = char>>(it: &mut Peekable<T>) -> Result<LexI
     }
 
     if number.is_empty() {
-        return Err(());
+        return Err(SimpleError::Impl(
+            "parser implementation fault. attempting to parse empty number".to_owned(),
+        ));
     }
 
     let token = LexItem::Num(
