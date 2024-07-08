@@ -14,6 +14,8 @@ use crate::lexer::LexItem;
 // >    expr -> summand + expr | summand
 // >    summand -> term * summand | term
 // >    term -> NUMBER | ( expr )
+//
+// So this is CFG or context free grammar and is used to define programming languages.
 
 pub fn parse(input: &str) -> Result<ParseNode> {
     let tokens = lexer::lex(input)?;
