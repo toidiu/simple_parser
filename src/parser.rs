@@ -71,7 +71,7 @@ fn parse_term(tokens: &[LexItem], idx: usize) -> Result<(ParseNode, usize)> {
     let out = match token {
         LexItem::Num(n) => Ok((ParseNode::new(GrammarItem::Number(*n), None), idx + 1)),
         LexItem::Paren(open) => {
-            if *open != '(' || *open != '[' || *open != '{' {
+            if *open != '(' && *open != '[' && *open != '{' {
                 return Err(SimpleError::Parser(format!(
                     "expected paren at {idx} but found {open}"
                 )));
