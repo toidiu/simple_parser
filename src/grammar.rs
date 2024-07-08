@@ -1,11 +1,3 @@
-// Not sure how exactly to read this grammar. Need to understand the notation. Probably at
-// http://pages.cs.wisc.edu/~fischer/cs536.s08/course.hold/html/NOTES/3.CFG.html#exp
-//
-// > The grammar I came up with is as follows:
-// >    expr -> summand + expr | summand
-// >    summand -> term * summand | term
-// >    term -> NUMBER | ( expr )
-
 #[derive(Debug, Clone)]
 pub enum GrammarItem {
     Product,
