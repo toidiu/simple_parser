@@ -115,24 +115,93 @@ fn matching(c: &char) -> char {
     }
 }
 
-pub fn format_print(tree: &ParseNode) -> String {
+#[allow(clippy::get_first)]
+pub fn format_pretty(tree: &ParseNode) -> String {
     match tree.entry {
         GrammarItem::Paren => {
             format!(
                 "({})",
-                format_print(tree.children.get(0).expect("parens need one child"))
+                format_pretty(tree.children.get(0).expect("parens need one child"))
             )
         }
         GrammarItem::Sum => {
-            let lhs = format_print(tree.children.get(0).expect("sums need two children"));
-            let rhs = format_print(tree.children.get(1).expect("sums need two children"));
+            let lhs = format_pretty(tree.children.get(0).expect("sums need two children"));
+            let rhs = format_pretty(tree.children.get(1).expect("sums need two children"));
             format!("{} + {}", lhs, rhs)
         }
         GrammarItem::Product => {
-            let lhs = format_print(tree.children.get(0).expect("products need two children"));
-            let rhs = format_print(tree.children.get(1).expect("products need two children"));
+            let lhs = format_pretty(tree.children.get(0).expect("products need two children"));
+            let rhs = format_pretty(tree.children.get(1).expect("products need two children"));
             format!("{} * {}", lhs, rhs)
         }
         GrammarItem::Number(n) => format!("{}", n),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parse() {
+        // ParseNode {
+        //     entry: Sum,
+        //     children: [
+        //         ParseNode {
+        //             entry: Number(1),
+        //             children: []
+        //         },
+        //         ParseNode {
+        //             entry: Number(2),
+        //             children: []
+        //         }
+        //     ]
+        // }
+        let tree = parse("1+2").unwrap();
+        println!("{:?}", tree);
+
+        // ParseNode {
+        //     entry: Sum,
+        //     children: [
+        //         ParseNode {
+        //             entry: Number(1234),
+        //             children: []
+        //          },
+        //          ParseNode {
+        //              entry: Product,
+        //              children: [
+        //                  ParseNode {
+        //                      entry: Number(43),
+        //                      children: []
+        //                  },
+        //                  ParseNode {
+        //                      entry: Paren,
+        //                      children: [
+        //                          ParseNode {
+        //                              entry: Sum,
+        //                              children: [
+        //                                  ParseNode {
+        //                                      entry: Number(34),
+        //                                      children: []
+        //                                  },
+        //                                  ParseNode {
+        //                                      entry: Paren,
+        //                                      children: [
+        //                                          ParseNode {
+        //                                              entry: Number(2),
+        //                                              children: []
+        //                                          }
+        //                                      ]
+        //                                  }
+        //                              ]
+        //                          }
+        //                      ]
+        //                  }
+        //              ]
+        //          }
+        //     ]
+        // }
+        let tree = parse("1234 + 43* (34 +[2])").unwrap();
+        println!("{:?}", tree);
     }
 }

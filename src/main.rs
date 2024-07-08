@@ -20,6 +20,6 @@ fn main() {
         println!("The first argument is {}", args[1]);
         let tree = parser::parse(&args[1]).unwrap();
 
-        println!("{}", parser::format_print(&tree));
+        println!("{}\n{:?}", parser::format_pretty(&tree), tree);
     }
 }

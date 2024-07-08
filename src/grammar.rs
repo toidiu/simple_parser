@@ -12,6 +12,9 @@ pub struct ParseNode {
     pub entry: GrammarItem,
     // A tree would only have 2 nodes. However a vec was used to avoid self-referential
     // issues and the use of `Box`. Could have instead have done leftNode and rightNode.
+    //
+    // Vec[0] = left hand of tree
+    // Vec[1] = right hand of tree
     pub children: Vec<ParseNode>,
 }
 
